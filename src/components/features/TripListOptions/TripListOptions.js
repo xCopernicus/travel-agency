@@ -17,6 +17,14 @@ class TripListOptions extends React.Component {
     }
   }
 
+  handleRegions(region, checked){
+    if(checked) {
+      this.props.addRegion(region);
+    } else {
+      this.props.removeRegion(region);
+    }
+  }
+
   handleDuration(type, value){
     console.log('Changing duration', type, value);
     // TODO - use action dispatcher from props
@@ -32,18 +40,18 @@ class TripListOptions extends React.Component {
   }
 
   render(){
-    const {tags, filters} = this.props;
+    const {regions, tags, filters} = this.props;
     return (
       <div className={styles.component}>
         <Row around="lg">
-          <Col lg={4}>
+          <Col lg={3}>
             <div className={styles.filter}>
               <label>
                 <input className={`${styles.input} ${styles.search}`} type='text' placeholder='Search...' value={filters.phrase} onChange={event => this.handleSearch(event.currentTarget.value)} />
               </label>
             </div>
           </Col>
-          <Col lg={4}>
+          <Col lg={3}>
             <div className={styles.filter}>
               <label>
                 Duration from:
@@ -55,7 +63,7 @@ class TripListOptions extends React.Component {
               </label>
             </div>
           </Col>
-          <Col lg={4}>
+          <Col lg={3}>
             <div className={styles.filter}>
               <details>
                 <summary className={styles.toggle}>Filter by tags</summary>
@@ -70,6 +78,21 @@ class TripListOptions extends React.Component {
               </details>
             </div>
           </Col>
+          <Col lg={3}>
+            <div className={styles.filter}>
+              <details>
+                <summary className={styles.toggle}>Filter by region</summary>
+                <div className={styles.dropdown}>
+                  {Object.keys(regions).map(region => (
+                    <label key={region} className={styles.option}>
+                      <input type='checkbox' checked={filters.regions.indexOf(region) > -1} onChange={event => this.handleRegions([regions[region].countries, region], event.currentTarget.checked)} />
+                      {region}
+                    </label>
+                  ))}
+                </div>
+              </details>
+            </div>
+          </Col>
         </Row>
       </div>
     );
@@ -78,12 +101,15 @@ class TripListOptions extends React.Component {
 
 TripListOptions.propTypes = {
   tags: PropTypes.object,
+  regions: PropTypes.object,
   filters: PropTypes.object,
   changeSearchPhrase: PropTypes.func,
   changeDurationFrom: PropTypes.func,
   changeDurationTo: PropTypes.func,
   addTag: PropTypes.func,
   removeTag: PropTypes.func,
+  addRegion: PropTypes.func,
+  removeRegion: PropTypes.func,
 };
 
 export default TripListOptions;
