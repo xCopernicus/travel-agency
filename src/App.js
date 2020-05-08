@@ -4,6 +4,7 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {AnimatedSwitch} from 'react-router-transition';
 import PropTypes from 'prop-types';
 import styles from './App.scss';
+import ScrollToTop from './utils/scrollToTop';
 
 import MainLayout from './components/layout/MainLayout/MainLayout';
 
@@ -18,6 +19,8 @@ import NotFound from './components/views/NotFound/NotFound';
 
 import parseTrips from './utils/parseTrips';
 import {setMultipleStates} from './redux/globalRedux';
+
+
 
 class App extends React.Component {
   static propTypes = {
@@ -42,11 +45,11 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <MainLayout>
+          <ScrollToTop />
           <AnimatedSwitch
             atEnter={{ opacity: 0, offset: 200 }}
             atLeave={{ opacity: 0, offset: 0 }}
             atActive={{ opacity: 1, offset: 0 }}
-            //location={location}
             className={styles.switchWrapper}
             mapStyles={(styles) => ({
               transform: `translateY(${styles.offset}px)`,
