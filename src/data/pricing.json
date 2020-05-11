@@ -68,11 +68,5 @@
     "id": "start-date",
     "name": "Preferred trip start",
     "type": "date"
-  },
-  {
-    "id": "Id",
-    "name": "Name",
-    "type": "type",
-    "defaultValue": "today"
   }
 ]

@@ -6,7 +6,6 @@ import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 const OrderOptionDate = ({currentValue, setOptionValue}) => (
   <DatePicker
-    className="testClass"
     dateFormat='dd/MM/yyyy'
     selected={currentValue}
     onChange={(date) => setOptionValue(date)}

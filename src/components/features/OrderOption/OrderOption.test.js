@@ -1,6 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 import OrderOption from './OrderOption';
+import DatePicker from 'react-datepicker';
 
 describe('Component OrderOption', () => {
   it('renders', () => {
@@ -112,7 +113,7 @@ for(let type in optionTypes){
       }
       case 'icons': {
         it('contains divs', () => {
-          const divWrapper = renderedSubcomponent.find('.wrapperDiv').at(0);
+          const divWrapper = renderedSubcomponent.find('.wrapperDiv');
           //why does not work without a class
 
           const emptyIcon = divWrapper.find('.emptyDiv');
@@ -180,13 +181,11 @@ for(let type in optionTypes){
       }
       case 'date': {
         it('contains DatePicker', () => {
-          const datePicker = renderedSubcomponent.find('.testClass');
-          //why does not work without a class
+          const datePicker = renderedSubcomponent.find(DatePicker);
           expect(datePicker.length).toBe(1);
         });
         it('should run setOrderOption', () => {
-          renderedSubcomponent.find('.testClass').simulate('change', testValueDate);
-          //why does not work without a class
+          renderedSubcomponent.find(DatePicker).simulate('change', testValueDate);
           expect(mockSetOrderOption).toBeCalledTimes(1);
           expect(mockSetOrderOption).toBeCalledWith({[mockProps.id]: testValueDate});
         });
