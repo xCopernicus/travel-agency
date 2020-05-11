@@ -45,6 +45,30 @@ describe('Component TripSummary', () => {
       expect(component.find('.tag').at(i).text()).toEqual(correctTags[i]);
     }
 
+  });
+
+  it('should render without an error', () => {
+    const props = {
+      id: 'id',
+      image: 'image.jpg',
+      name: 'name',
+      cost: 'cost',
+      days: 1,
+      tags: [],
+    };
+
+    const component = shallow(
+      <div>
+        <TripSummary id={props.id} image={props.image} name={props.name} cost={props.cost} days={props.days} tags={props.tags} />
+      </div>
+    );
+
+    expect(component.find(TripSummary).prop('id')).toEqual(props.id);
+    expect(component.find(TripSummary).prop('image')).toEqual(props.image);
+    expect(component.find(TripSummary).prop('name')).toEqual(props.name);
+    expect(component.find(TripSummary).prop('cost')).toEqual(props.cost);
+    expect(component.find(TripSummary).prop('days')).toEqual(props.days);
+
 
   });
 
