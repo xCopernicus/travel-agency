@@ -113,15 +113,12 @@ for(let type in optionTypes){
       }
       case 'icons': {
         it('contains divs', () => {
-          const divWrapper = renderedSubcomponent.find('.wrapperDiv');
-          //why does not work without a class
+          const divWrapper = renderedSubcomponent.find('[data-test-id="wrapperDiv"]');
 
-          const emptyIcon = divWrapper.find('.emptyDiv');
-          //why does not work without a class
+          const emptyIcon = divWrapper.find('[data-test-id="emptyDiv"]');
           expect(emptyIcon.length).toBe(1);
 
-          const icons = divWrapper.find('.iconDiv');
-          //why does not work without a class
+          const icons = divWrapper.find('[data-test-id="iconDiv"]');
           expect(icons.length).toBe(mockProps.values.length);
         });
         it('should run setOrderOptoin function on click', () => {

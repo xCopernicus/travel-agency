@@ -15,26 +15,26 @@ import OrderForm from '../../features/OrderForm/OrderFormContainer';
 import styles from './Trip.scss';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 
-const Trip = ({error, name, image, cost, days, description, country, intro}) => {
+const Trip = ({error, country, trip}) => {
   if(error) return <NotFound />;
   else return (
     <Section>
       <Grid>
-        <PageTitle text={name} />
+        <PageTitle text={trip.name} />
       </Grid>
       <DetailsBox>
         <DetailsImage>
-          <SideImage source={image} />
+          <SideImage source={trip.image} />
         </DetailsImage>
         <Grid>
           <Row>
             <Col md={12} lg={4}>
               <div className={styles.intro}>
-                {HTMLParser(intro)}
+                {HTMLParser(trip.intro)}
               </div>
               <List variant='light'>
-                <ListItem title={`<strong>Duration:</strong> ${days} days`} icon='calendar-alt' />
-                <ListItem title={`<strong>Price:</strong> from ${cost}`} icon='money-bill-wave' />
+                <ListItem title={`<strong>Duration:</strong> ${trip.days} days`} icon='calendar-alt' />
+                <ListItem title={`<strong>Price:</strong> from ${trip.cost}`} icon='money-bill-wave' />
               </List>
             </Col>
           </Row>
@@ -44,7 +44,7 @@ const Trip = ({error, name, image, cost, days, description, country, intro}) => 
         <Row>
           <Col xs={12}>
             <PageTitle text='Trip details' />
-            {HTMLParser(description)}
+            {HTMLParser(trip.description)}
           </Col>
         </Row>
       </Grid>
@@ -71,7 +71,7 @@ const Trip = ({error, name, image, cost, days, description, country, intro}) => 
         <Row>
           <Col xs={12}>
             <PageTitle text='Trip options' />
-            <OrderForm tripCost={cost} />
+            <OrderForm trip={trip} tripCost={trip.cost} tripId={trip.id} tripName={trip.name} tripCountryCode={trip.country.code} />
           </Col>
         </Row>
       </Grid>

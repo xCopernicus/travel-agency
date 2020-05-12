@@ -8,7 +8,7 @@ const mapStateToProps = (state, props) => {
   const country = getCountryByCode(state, trip.country.code);
 
   return {
-    ...trip,
+    trip,
     country,
   };
 };
