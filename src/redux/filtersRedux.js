@@ -60,7 +60,12 @@ export default function reducer(statePart = [], action = {}) {
     case ADD_REGION:
       return {
         ...statePart,
-        regions: [...statePart.regions, ...action.payload],
+        regions: {...statePart.regions, ...action.payload},
+      };
+    case REMOVE_REGION:
+      return {
+        ...statePart,
+        regions: statePart.regions.filter(region => region !== action.payload),
       };
     default:
       return statePart;

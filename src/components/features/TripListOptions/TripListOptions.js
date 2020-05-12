@@ -7,27 +7,27 @@ import {Row, Col} from 'react-flexbox-grid';
 class TripListOptions extends React.Component {
   handleTags(tag, checked){
     if(checked) {
-      console.log('Adding tag', tag);
-      // TODO - use action dispatcher from props
+      //console.log('Adding tag', tag);
       this.props.addTag(tag);
     } else {
-      console.log('Removing tag', tag);
-      // TODO - use action dispatcher from props
+      //console.log('Removing tag', tag);
       this.props.removeTag(tag);
     }
   }
 
-  handleRegions(region, checked){
+  handleRegions(region, regions, checked){
     if(checked) {
-      this.props.addRegion(region);
+      //console.log(regions[region].countries);
+      //console.log('Adding region', region);
+      this.props.addRegion({[region]: regions[region].countries});
     } else {
+      //console.log('Removing region', region);
       this.props.removeRegion(region);
     }
   }
 
   handleDuration(type, value){
-    console.log('Changing duration', type, value);
-    // TODO - use action dispatcher from props
+    //console.log('Changing duration', type, value);
     if (type == 'from') {
       this.props.changeDurationFrom(parseInt(value));
     } else if (type == 'to') {
@@ -85,7 +85,7 @@ class TripListOptions extends React.Component {
                 <div className={styles.dropdown}>
                   {Object.keys(regions).map(region => (
                     <label key={region} className={styles.option}>
-                      <input type='checkbox' checked={filters.regions.indexOf(region) > -1} onChange={event => this.handleRegions([regions[region].countries, region], event.currentTarget.checked)} />
+                      <input type='checkbox' checked={region in filters.regions} onChange={event => this.handleRegions(region, regions, event.currentTarget.checked)} />
                       {region}
                     </label>
                   ))}

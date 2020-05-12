@@ -19,7 +19,7 @@ const initialState = {
       from: 1,
       to: 14,
     },
-    regions: [],
+    regions: {},
   },
   order: {
     trip: null,
