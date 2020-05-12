@@ -41,6 +41,8 @@ const sendOrder = (options, trip) => {
         return response.json();
       }).then(function(parsedResponse){
         console.log('parsedResponse', parsedResponse);
+      }).catch(() => {
+        alert('Error while fetching data');
       });
   } else {
     alert('Please make sure you enter your name and contact info.');
