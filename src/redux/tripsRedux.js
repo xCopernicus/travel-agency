@@ -10,7 +10,9 @@ export const getFilteredTrips = ({trips, filters}) => {
     output = output.filter(trip => pattern.test(trip.name));
   }
 
-  output = output.filter(trip => filters.duration.from <= trip.days && trip.days <= filters.duration.to);
+  if(filters.duration){
+    output = output.filter(trip => filters.duration.from <= trip.days && trip.days <= filters.duration.to);
+  }
 
   if(filters.tags){
     output = output.filter(trip => filters.tags.every(tag => trip.tags.includes(tag)));
@@ -20,8 +22,32 @@ export const getFilteredTrips = ({trips, filters}) => {
   // TODO - filter by region
 
   if(filters.regions){
-    output = output.filter(trip => Object.keys(filters.regions).filter(key => filters.regions[key].includes(trip.country.code)));
+    let list = false;
+    Object.keys(filters.regions).forEach(key => list ? list.push(...filters.regions[key]) : list = [...filters.regions[key]]);
+    output = output.filter(trip => list ? list.includes(trip.country.code) : true);
+
+    /*let list = [];
+    for (let region in filters.regions) {
+      list.push(...filters.regions[region]);
+    }
+    if (list != []){
+      output = output.filter(trip => list.includes(trip.country.code));
+    }*/
+    for(let i = 0; i <= 26; i++){
+      //console.log(Object.keys(filters.regions).filter(key => filters.regions[key].includes(output[i].country.code)));
+    }
+    /*output = output.filter(trip => {
+      console.log('Trip: ', trip);
+      console.log(Object.keys(filters.regions).filter(key => (filters.regions[key].includes(trip.country.code))));
+      return (Object.keys(filters.regions).filter(key => {
+        console.log('Key: ', key);
+        console.log(filters.regions[key].includes(trip.country.code));
+        return (filters.regions[key].includes(trip.country.code));
+      }));
+    });*/
   }
+
+
 
   return output;
 };
