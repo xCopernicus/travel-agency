@@ -13,7 +13,6 @@ import {formatPrice} from '../../../utils/formatPrice';
 import {calculateTotal} from '../../../utils/calculateTotal';
 
 const sendOrder = (options, trip) => {
-  console.log(trip);
 
   const totalCost = formatPrice(calculateTotal(trip.cost, options));
 
@@ -36,12 +35,16 @@ const sendOrder = (options, trip) => {
     body: JSON.stringify(payload),
   };
 
-  fetch(url, fetchOptions)
-    .then(function(response){
-      return response.json();
-    }).then(function(parsedResponse){
-      console.log('parsedResponse', parsedResponse);
-    });
+  if (options.name && options.contact) {
+    fetch(url, fetchOptions)
+      .then(function(response){
+        return response.json();
+      }).then(function(parsedResponse){
+        console.log('parsedResponse', parsedResponse);
+      });
+  } else {
+    alert('Please make sure you enter your name and contact info.');
+  }
 };
 
 const OrderForm = ({options, setOrderOption, trip}) => {
