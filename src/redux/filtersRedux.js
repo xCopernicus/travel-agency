@@ -1,3 +1,12 @@
+Object.filter = (obj, keyToDelete) => {
+  let result = {};
+  const keys = Object.keys(obj).filter(key => key !== keyToDelete);
+  for (let key of keys){
+    result[key] = obj[key];
+  }
+  return result;
+};
+
 /* SELECTORS */
 
 export const getAllFilters = ({filters}) => filters;
@@ -40,12 +49,12 @@ export default function reducer(statePart = [], action = {}) {
     case CHANGE_DURATION_FROM:
       return {
         ...statePart,
-        duration: {from: action.payload, to: statePart.duration.to},
+        duration: {from: action.payload, ...statePart.duration},
       };
     case CHANGE_DURATION_TO:
       return {
         ...statePart,
-        duration: {from: statePart.duration.from, to: action.payload},
+        duration: {...statePart.duration, to: action.payload},
       };
     case ADD_TAG:
       return {
@@ -63,7 +72,10 @@ export default function reducer(statePart = [], action = {}) {
         regions: {...statePart.regions, ...action.payload},
       };
     case REMOVE_REGION:
-      return statePart;
+      return {
+        ...statePart,
+        regions: Object.filter(statePart.regions, action.payload),
+      };
     default:
       return statePart;
   }
