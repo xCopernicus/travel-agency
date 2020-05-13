@@ -22,32 +22,9 @@ export const getFilteredTrips = ({trips, filters}) => {
   // TODO - filter by region
 
   if(filters.regions){
-    let list = false;
-    Object.keys(filters.regions).forEach(key => list ? list.push(...filters.regions[key]) : list = [...filters.regions[key]]);
-    output = output.filter(trip => list ? list.includes(trip.country.code) : true);
-
-    /*let list = [];
-    for (let region in filters.regions) {
-      list.push(...filters.regions[region]);
-    }
-    if (list != []){
-      output = output.filter(trip => list.includes(trip.country.code));
-    }*/
-    for(let i = 0; i <= 26; i++){
-      //console.log(Object.keys(filters.regions).filter(key => filters.regions[key].includes(output[i].country.code)));
-    }
-    /*output = output.filter(trip => {
-      console.log('Trip: ', trip);
-      console.log(Object.keys(filters.regions).filter(key => (filters.regions[key].includes(trip.country.code))));
-      return (Object.keys(filters.regions).filter(key => {
-        console.log('Key: ', key);
-        console.log(filters.regions[key].includes(trip.country.code));
-        return (filters.regions[key].includes(trip.country.code));
-      }));
-    });*/
+    const codes = Object.values(filters.regions).flat();
+    output = output.filter(trip => codes.length == 0 ? true : codes.includes(trip.country.code));
   }
-
-
 
   return output;
 };

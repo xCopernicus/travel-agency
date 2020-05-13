@@ -17,11 +17,10 @@ class TripListOptions extends React.Component {
 
   handleRegions(region, regions, checked){
     if(checked) {
-      //console.log(regions[region].countries);
-      //console.log('Adding region', region);
+      console.log('Adding region', region);
       this.props.addRegion({[region]: regions[region].countries});
     } else {
-      //console.log('Removing region', region);
+      console.log('Removing region', region);
       this.props.removeRegion(region);
     }
   }
